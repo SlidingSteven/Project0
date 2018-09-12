@@ -7,9 +7,15 @@ Email address: steven.tuckerba@ou.edu
 Date: 9/11/18
 
 Description
-FILL IN
+This program needs the user to give a range and a file i.e. ./project0 range < filename.txt
+Replace range with one of three options 
+    1 Nothing will give an automatic range of all chars
+    2 By passing a single char you will be choosing a range of that char until the last char in the list of ASCII chars
+    3 By passing two chars i.e. "a z" you are giving it a range of a to z.
+This will output the range followed by a list of the chars in the range and the number of times they were used in the file you passed.
 
 References
-FILL IN
+I used https://youtu.be/phovjaAVuFY by GTCoding to refresh myself on how to use mollocs on an array
+I also used what material from canvas for the makefile and changed it to have my project name.
 
 

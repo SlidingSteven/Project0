@@ -54,6 +54,8 @@ int main (int argc, unsigned char** argv){
     /**
      *  This will make an empty char and then depending on the number returned by findNumTimes it will return some pound signs.
      *  Returns the char array which is used when I printf each line later
+     *  I think I learned about using malloc before but refreshed myself here
+     *  https://www.google.com/search?q=using+malloc+to+create+an+array+in+c&oq=using+malloc+to+&aqs=chrome.0.0j69i57j0l4.7502j1j7&sourceid=chrome&ie=UTF-8#kpvalbx=1
      */
     char* printSomeHashtags(char ch){
         char* ret= malloc(1000000*sizeof(char));
@@ -71,8 +73,8 @@ int main (int argc, unsigned char** argv){
      *  No doubt that there is a better way to do it that doesnt use so much space but I couldnt figure it out and I'll revisit this in the future
      */
     int t = 0;
-    for(int ch = getchar(); ch != EOF; ch = getchar()){
-        input[p] = ch;
+    for(int next = getchar(); next != EOF; next = getchar()){
+        input[p] = next;
         p++;
     }
     
@@ -84,7 +86,6 @@ int main (int argc, unsigned char** argv){
         printf("%c:%5d %s\n", i, findNumTimes(input, i), printSomeHashtags(i));
        
     }
-    //printf("\n");
- 
+    
     return 0;
 }
