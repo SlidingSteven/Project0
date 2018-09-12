@@ -7,44 +7,43 @@ int main (int argc, unsigned char** argv){
     unsigned char rangeInput1;
     unsigned char rangeInput2;
     unsigned char z = 'z';
+    int p = 0;
+    unsigned char compareTo;
    
+    ////////DEALING WITH INPUT////////
+    /*------If no range is specified-------*/
+    if (argc == 1){
+        rangeInput1 = '$\000'; // needs to be first possible
+        rangeInput2 = '$\377'; // needs to be last possible
+    }
+    /*------One input i.e. a----*/
+    else if (argc == 2){
+        rangeInput1 = argv[1][0];
+        rangeInput2 = '$\377';//needs to be last possible char
+    }
     /*----Two inputs i.e. a z------*/
-    if (argc == 3) {
+    else if (argc == 3) {
         rangeInput1 = argv[1][0];
         rangeInput2 = argv[2][0];
-        printf("r1 = %c\nr2 = %c\n", rangeInput1, rangeInput2);
     }
     /*-----Three inputs i.e. a-z----------*/
     else if (argc == 4){
         rangeInput1 = argv[1][0];
         rangeInput2 = argv[3][0];
-        //printf("r1 = %c\nr2 = %c\n", rangeInput1, rangeInput2);
-
     }
-    /*------One input i.e. a----*/
-    else{
-        rangeInput1 = argv[1][0];
-        rangeInput2 = z;
-    }
-   
-   printf("\nZero %s\n One %s\n Two %s\n Three %s\n Int %i\n", argv[0], argv[1], argv[2], argv[3], argc);
-
-     //rangeInput1 = argv[1][0];  //This saves the first char entered for the range 
-     //rangeInput2 = argv[2][0];  //This saves the second char entered for the range
-     //printf("r1 = %c\nr2 = %c\nr = %i", rangeInput1, rangeInput2, argc);
-          //  printf("r1 = %c\nr2 = %c\n", rangeInput1, rangeInput2);
-
-    int p = 0;
-    unsigned char compareTo;
-
-    printf("Range %c-%c\n", rangeInput1, rangeInput2);
-
+     
+    ////////SOME REAL SLICK METHODS////////
     /*---------Finds the number of times a character occurs in a given string-------------*/
+    /**
+     *  In this case the variable string is going to be the input from the file saved as a string
+     *  The for loop takes the string variable and goes through it character by character until the length is met 
+     *  The if loops checks if the currect char == the specified char, ch and if it does then the numTimes is incremented and returns this number
+     */
     int findNumTimes(const char* string, char ch)
     {
-        int numTimes = 0;
-        for (int i = 0; i <= strlen(input); i++){
-            if (string[i] == ch){
+        int numTimes = 0;                           
+        for (int i = 0; i <= strlen(input); i++){   
+            if (string[i] == ch){                    
                 numTimes++;
             }
         }
@@ -52,6 +51,10 @@ int main (int argc, unsigned char** argv){
     }
 
     /*---------Prints the number of pound signs a character occurs in a given string--------*/
+    /**
+     *  This will make an empty char and then depending on the number returned by findNumTimes it will return some pound signs.
+     *  Returns the char array which is used when I printf each line later
+     */
     char* printSomeHashtags(char ch){
         char* ret= malloc(1000000*sizeof(char));
         for (int i = 0; i < findNumTimes(input, ch); i++){
@@ -60,36 +63,28 @@ int main (int argc, unsigned char** argv){
         return ret;
     }
 
+    ////////THIS IS WHERE THE FUN BEGINS////////
     /*----------Takes in the file and saves it to input ------*/
-    
+    /**
+     *  This doesnt need much more explanation but it is how I "handled" the file.  
+     *  I went char by char and fed each one into a char array with a huge buffer size.  
+     *  No doubt that there is a better way to do it that doesnt use so much space but I couldnt figure it out and I'll revisit this in the future
+     */
     int t = 0;
     for(int ch = getchar(); ch != EOF; ch = getchar()){
         input[p] = ch;
         p++;
     }
-    /*-------------*/
-    /*
-    char* input2[1000000];
-    char* readIn(){
-        unsigned char input1[1000000];
-        for(int ch = getchar(); ch != EOF; ch = getchar()){
-            input1[p] = putchar(ch);
-            p++;
-        
-        return (*input1);
-    }
-    input2 = readIn();*/
-    //---------Here we print the range of letters being dealt with and store them into a character array----------/
-    char lettersInRange[26]; //sets up a char array to put the range of letters into 
-    int rangeCounter = 0; // keeps track of the letter in the range you are on 
-    for(int i = rangeInput1; i <= rangeInput2; i++){
-        printf("\n%c:\t%i %s", i, findNumTimes(input, i), printSomeHashtags(i));
-        //printf("%c\t%i\n", i, findNumTimes(input1, i));
+    
+    /*------Print the range--------*/
+    printf("Range: %c-%c\n", rangeInput1, rangeInput2);
 
-        lettersInRange[rangeCounter] = i;
-        rangeCounter++;
+    /*---------Here we print the range of letters being dealt with and store them into a character array----------*/
+    for(int i = rangeInput1; i <= rangeInput2; i++){
+        printf("%c:%5d %s\n", i, findNumTimes(input, i), printSomeHashtags(i));
+       
     }
-    printf("\n");
+    //printf("\n");
  
     return 0;
 }
